@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="background-color: #d6d3d1">
+
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Admin Dashboard</h2>
+
+  <!-- 1st Area: Request Management Cards -->
+  <div class="row mb-4 text-center">
+    <div class="col-md-4">
+      <div class="card text-white bg-primary shadow">
+        <div class="card-body">
+          <h5>Total Requests</h5>
+          <h2>25</h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-white bg-warning shadow">
+        <div class="card-body">
+          <h5>Pending Requests</h5>
+          <h2>8</h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-white bg-success shadow">
+        <div class="card-body">
+          <h5>Resolved Requests</h5>
+          <h2>15</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2nd Area: Complaints Table -->
+  <div class="card shadow">
+    <div class="card-header fw-bold">
+      Requests Management
+    </div>
+    <div class="card-body">
+      <table class="table table-bordered align-middle text-center">
+        <thead class="table-dark">
+          <tr>
+            <th>username</th>
+            <th>address</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Update</th>
+          </tr>
+        </thead>
+        <tbody id="complaints">
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script>
+  fetch("/get_complaint")
+  .then(res => res.json())
+  .then(data => {
+    let tbody = document.getElementById("complaints");
+    console.log(data);
+    data.forEach(c => {
+      let tr = document.createElement("tr");
+
+        // Username
+      let tdUser = document.createElement("td");
+      tdUser.innerText = c.user.username;
+
+      // Address
+      let tdAddress = document.createElement("td");
+      tdAddress.innerText = c.user.address;
+
+      // Category
+      let tdCat = document.createElement("td");
+      tdCat.innerText = c.catagory;
+
+      // Description
+      let tdDesc = document.createElement("td");
+      tdDesc.innerText = c.description;
+
+      // Status (default Pending)
+      let tdStatus = document.createElement("td");
+      tdStatus.innerText =  "Pending";
+
+      // Update (input)
+      let tdUpdate = document.createElement("td");
+      let input = document.createElement("input");
+      input.type = "text";
+      input.placeholder = "Update status";
+      tdUpdate.appendChild(input);
+
+      tr.appendChild(tdUser);
+      tr.appendChild(tdAddress);
+      tr.appendChild(tdCat);
+      tr.appendChild(tdDesc);
+      tr.appendChild(tdStatus);
+      tr.appendChild(tdUpdate);
+
+      tbody.appendChild(tr);
+    });
+  });
+
+</script>
+</body>
+</html>

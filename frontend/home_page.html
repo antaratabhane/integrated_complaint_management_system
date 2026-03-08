@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Unified Service Management Portal - Waste Management System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* ===== RESET ===== */
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: "Inter","Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background:#F5F7F8;
+  color:#1E2D2F;
+}
+
+/* ===== THEME ===== */
+:root {
+  --primary:#1F6F78;
+  --primary-dark:#13474D;
+  --primary-light:#E6F2F3;
+  --accent:#8ED1C6;
+
+  --white:#ffffff;
+  --gray:#7D8F91;
+  --dark:#1E2D2F;
+
+  --shadow:0 10px 25px rgba(0,0,0,0.08);
+  --shadow-hover:0 16px 40px rgba(0,0,0,0.12);
+  --radius:16px;
+}
+
+/* ===== PAGE SWITCH ===== */
+.page { display:none; min-height:100vh; animation:fade 0.5s ease; }
+.page:target { display:block; }
+.page:first-of-type { display:block; }
+
+@keyframes fade {
+  from { opacity:0; transform:translateY(20px); }
+  to { opacity:1; transform:translateY(0); }
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  padding:14px 30px;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:600;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  transition:0.3s;
+}
+
+.btn-primary {
+  background:linear-gradient(135deg,#1F6F78,#2FA4A9);
+  color:white;
+  box-shadow:0 10px 25px rgba(31,111,120,0.35);
+}
+.btn-primary:hover {
+  transform:translateY(-2px);
+  box-shadow:0 16px 40px rgba(31,111,120,0.45);
+}
+
+.btn-secondary {
+  background:transparent;
+  color:white;
+  border:2px solid rgba(255,255,255,0.6);
+}
+.btn-secondary:hover {
+  background:rgba(255,255,255,0.15);
+}
+
+/* ===== HEADER ===== */
+.header {
+  background:rgba(255,255,255,0.95);
+  backdrop-filter:blur(10px);
+  padding:18px 50px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:var(--shadow);
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.logo {
+  display:flex;
+  gap:14px;
+  align-items:center;
+}
+
+.logo-icon {
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#1F6F78,#2FA4A9);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:24px;
+  color:white;
+}
+
+.logo-text h1 {
+  font-size:18px;
+  color:var(--primary-dark);
+}
+.logo-text p {
+  font-size:12px;
+  color:var(--gray);
+}
+
+/* ===== NAV LINKS ===== */
+.nav-links a {
+  margin-left:20px;
+  padding:8px 18px;
+  border-radius:999px;
+  color:var(--dark);
+  font-weight:500;
+  text-decoration:none;
+  transition:0.3s;
+}
+
+.nav-links a:hover {
+  background:var(--primary-light);
+  color:var(--primary-dark);
+}
+
+.nav-links .active {
+  background:var(--primary-light);
+  color:var(--primary-dark);
+}
+
+/* ===== HERO ===== */
+.hero {
+  background:linear-gradient(135deg,#1F6F78,#2FA4A9,#8ED1C6);
+  padding:100px 80px;
+  border-bottom-left-radius:70px;
+  border-bottom-right-radius:70px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  gap:40px;
+  color:white;
+}
+
+/* ===== AI BADGE ===== */
+.badge {
+  display:inline-block;
+  background:rgba(255,255,255,0.2);
+  padding:8px 18px;
+  border-radius:999px;
+  font-size:13px;
+  margin-bottom:25px;
+}
+
+/* ===== HERO TEXT ===== */
+.hero h2 {
+  font-size:64px;
+  line-height:1.05;
+  max-width:600px;
+}
+
+.hero p {
+  font-size:20px;
+  margin:25px 0 40px;
+  max-width:500px;
+  color:#e9fffb;
+}
+
+.hero-buttons {
+  display:flex;
+  gap:20px;
+}
+
+/* ===== HERO ILLUSTRATION ===== */
+.hero-illustration {
+  width:100%;
+  max-width:520px;
+  justify-self:center;
+}
+
+/* ===== FEATURES ===== */
+.features {
+  padding:90px 50px;
+  background:white;
+}
+
+.features h3 {
+  text-align:center;
+  font-size:38px;
+  margin-bottom:60px;
+  color:var(--primary-dark);
+}
+
+.features-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:40px;
+  max-width:1100px;
+  margin:auto;
+}
+
+.feature-card {
+  background:white;
+  padding:35px 28px;
+  border-radius:var(--radius);
+  text-align:center;
+  box-shadow:var(--shadow);
+  opacity:0;
+  transform:translateY(25px);
+  transition:0.6s;
+}
+
+.feature-card.show {
+  opacity:1;
+  transform:translateY(0);
+}
+
+.feature-card:hover {
+  box-shadow:var(--shadow-hover);
+  transform:translateY(-4px);
+}
+
+.feature-icon {
+  width:70px;
+  height:70px;
+  background:var(--primary-light);
+  color:var(--primary);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:34px;
+  margin:0 auto 20px;
+}
+
+.feature-card h4 {
+  font-size:22px;
+  margin-bottom:10px;
+  color:var(--primary-dark);
+}
+.feature-card p {
+  color:var(--gray);
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  background:var(--primary-dark);
+  color:white;
+  padding:40px;
+  text-align:center;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px) {
+  .hero {
+    grid-template-columns:1fr;
+    text-align:center;
+    padding:70px 30px;
+  }
+  .hero-buttons {
+    justify-content:center;
+  }
+  .hero h2 {
+    font-size:42px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= HOME ================= -->
+<div class="page" id="home">
+
+<header class="header">
+  <div class="logo">
+    <div class="logo-icon">♻️</div>
+    <div class="logo-text">
+      <h1>Unified Service Management Portal</h1>
+      <p>Smart Complaint Management System</p>
+    </div>
+  </div>
+  <nav class="nav-links">
+    <a href="#home" class="active">Home</a>
+    <a href="login.html">User Login</a>
+    <a href="login.html">Admin Login</a>
+  </nav>
+</header>
+
+<!-- ===== HERO SECTION (REFERENCE MATCHED) ===== -->
+<section class="hero">
+  <div>
+
+    <div class="badge">Complaint Management System</div>
+
+    <h2>
+      Building a<br>
+      Sustainable<br>
+      Future
+    </h2>
+
+    <p>
+      A smart complaint management system that allows citizens to report waste issues easily.
+      It uses technology to improve cleanliness, reduce response time, and make cities greener.
+    </p>
+
+    <div class="hero-buttons">
+      <a href="/login_page" class="btn btn-primary">
+        Get Started →
+      </a>
+      <a href="#features" class="btn btn-secondary">
+        Learn More
+      </a>
+    </div>
+  </div>
+
+  <!-- ===== ILLUSTRATION ===== -->
+  <svg class="hero-illustration" viewBox="0 0 500 350" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 280 Q150 200 300 260 T500 260 V350 H0 Z" fill="#CDEDEA"/>
+    <rect x="280" y="120" width="60" height="120" rx="6" fill="#B2DFDB"/>
+    <rect x="350" y="80" width="70" height="160" rx="6" fill="#9ED3CF"/>
+    <rect x="430" y="140" width="40" height="100" rx="6" fill="#B2DFDB"/>
+    <rect x="150" y="200" width="60" height="30" fill="#1F6F78"/>
+    <rect x="220" y="200" width="60" height="30" fill="#1F6F78"/>
+    <circle cx="100" cy="220" r="22" fill="#4CAF50"/>
+    <rect x="95" y="220" width="10" height="30" fill="#6D4C41"/>
+    <circle cx="50" cy="240" r="18" fill="#66BB6A"/>
+    <rect x="46" y="240" width="8" height="25" fill="#6D4C41"/>
+    <line x1="420" y1="60" x2="420" y2="150" stroke="#555" stroke-width="4"/>
+    <circle cx="420" cy="60" r="6" fill="#555"/>
+    <line x1="420" y1="60" x2="450" y2="40" stroke="#555" stroke-width="3"/>
+    <line x1="420" y1="60" x2="390" y2="40" stroke="#555" stroke-width="3"/>
+    <line x1="420" y1="60" x2="420" y2="30" stroke="#555" stroke-width="3"/>
+  </svg>
+</section>
+
+<!-- ===== FEATURES ===== -->
+<section class="features" id="features">
+  <h3>Our Key Features</h3>
+  <div class="features-grid">
+
+    <div class="feature-card">
+      <div class="feature-icon">📸</div>
+      <h4>AI Image Verification</h4>
+      <p>Ensures uploaded complaint images are genuine and not AI-generated.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h4>Waste Management</h4>
+      <p>Efficient routing and handling of waste-related issues for quick resolution.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">🌍</div>
+      <h4>Community Initiative</h4>
+      <p>Engages citizens to help build a cleaner and greener environment.</p>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <p>© 2024 Unified Service Management Portal</p>
+</footer>
+
+</div>
+
+<!-- ===== SCROLL ANIMATION ===== -->
+<script>
+const cards = document.querySelectorAll('.feature-card');
+
+const revealOnScroll = () => {
+  const trigger = window.innerHeight * 0.85;
+  cards.forEach(card => {
+    const top = card.getBoundingClientRect().top;
+    if (top < trigger) {
+      card.classList.add('show');
+    }
+  });
+};
+
+window.addEventListener('scroll', revealOnScroll);
+revealOnScroll();
+</script>
+
+</body>
+</html>
