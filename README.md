@@ -1,7 +1,8 @@
 # 🏙️ Integrated Complaint Management System
 
 A web platform where citizens can register civic complaints (electricity, garbage and waste, water supply, etc.) and the Municipal Corporation (MNC) can view and resolve them.
-<a href="https://your-live-demo-link.com](https://your-live-demo-link.com](https://integrated-complaint-management-sys.vercel.app">🔗 **Live Demo:** </a>
+
+🔗 **Live Demo:** [https://integrated-complaint-management-sys.vercel.app](https://integrated-complaint-management-sys.vercel.app)
 
 ---
 
@@ -132,6 +133,14 @@ Then open `frontend/home.html` in your browser.
 4. The MNC reviews it and works on it (**In Progress**).
 5. Once fixed, the MNC marks it **Resolved**.
 6. Citizen sees the updated status.
+
+---
+
+## 📸 Screenshots
+
+| Citizen Page | Admin Page |
+|---|---|
+| ![Citizen](screenshots/citizen.png) | ![Admin](screenshots/admin.png) |
 
 ---
 
