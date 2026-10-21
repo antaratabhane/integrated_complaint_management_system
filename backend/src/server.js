@@ -53,7 +53,7 @@ app.get("/login_page", (req, res) => {
   res.sendFile(path.join(__dirname, "../../frontend/login.html"));
 });
 
-app.get("/home", (req, res) =>{
+app.get("/", (req, res) =>{
   res.sendFile(path.join(__dirname, "../../frontend/home.html"));
 });
 
