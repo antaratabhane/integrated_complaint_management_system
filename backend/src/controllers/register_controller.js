@@ -13,7 +13,7 @@ let Register = async(req, res) =>{
     try {
         let user = await newModel.save();
         req.session.userId = user._id;
-        res.redirect("/login_page");
+        res.redirect("/login");
     } catch (error) {
         console.error("MongoDB Save Error:", error);
         res.status(500).send("Database error: Check your VS Code terminal for details.");
