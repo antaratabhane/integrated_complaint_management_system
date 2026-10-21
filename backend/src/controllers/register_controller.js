@@ -1,8 +1,8 @@
-let Login = require("../models/register_model");
+let register = require("../models/register_model");
 
 let Register = async(req, res) =>{
     let {username, email, contact, password, address} = req.body;
-    let newModel = Login({
+    let newModel = register({
         username,
         email,
         contact,

@@ -1,4 +1,4 @@
-let complaint_schema = require("../models/conplaint_model");
+let complaint_schema = require("../models/complaint_model");
 
 let complaint = async(req, res) =>{
     let {catagory, description} = req.body;

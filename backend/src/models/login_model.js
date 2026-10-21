@@ -17,4 +17,4 @@ let loginSchema = mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model("login", loginSchema);
+module.exports = mongoose.model("login", loginSchema, "registers");

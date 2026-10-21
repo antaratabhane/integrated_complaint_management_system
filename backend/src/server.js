@@ -49,7 +49,7 @@ app.get("/register", (req, res) => {
   res.sendFile(fullPath);
 });
 
-app.get("/login_page", (req, res) => {
+app.get("/login", (req, res) => {
   res.sendFile(path.join(__dirname, "../../frontend/login.html"));
 });
 
@@ -67,10 +67,13 @@ app.use("/complaint", complaint_route)
 
 mongoose.connect(process.env.MONGO_URL)
 .then(() => {
-    console.log("Database Connected");
+  console.log("Database Connected");
+  const PORT = process.env.PORT || 3000;
+
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 })
 .catch((err) => {
-    console.error("Database connection failed:", err);
+  console.error("Database connection failed:", err);
 });
 
 module.exports = app;

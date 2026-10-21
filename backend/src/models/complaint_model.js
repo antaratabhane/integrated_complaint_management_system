@@ -2,7 +2,7 @@ let mongoose = require("mongoose");
 
 let complaintShema = mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: "login" },
-    catagory: {
+    category: {
         type: String,
         required: true
     },
