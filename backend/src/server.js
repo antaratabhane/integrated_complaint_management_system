@@ -1,3 +1,4 @@
+process.loadEnvFile();
 let express = require("express");
 let app = express();
 let path = require("path")
@@ -62,7 +63,7 @@ app.use("/get_complaint", complaint_route);
 
 app.use("/complaint", complaint_route)
 
-mongoose.connect("mongodb+srv://artofank_db_user:PaJ7Gb9Fo2hnk6p3@cluster0.np01urw.mongodb.net/user_information?appName=Cluster0")
+mongoose.connect(process.env.MONGO_URL)
 .then(() =>{
     app.listen(5002, () =>{
         console.log("Server started");
