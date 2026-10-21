@@ -35,7 +35,7 @@ app.get("/upload_image", (req, res) => {
   res.sendFile(fullPath);
 });
 
-app.get("/home_page", (req, res) => {
+app.get("/", (req, res) => {
   console.log("Request received for /rgt");
   const fullPath = path.join(__dirname, "../../frontend/home_page.html");
   console.log("Sending file:", fullPath); 
@@ -53,7 +53,7 @@ app.get("/login_page", (req, res) => {
   res.sendFile(path.join(__dirname, "../../frontend/login.html"));
 });
 
-app.get("/", (req, res) =>{
+app.get("/home", (req, res) =>{
   res.sendFile(path.join(__dirname, "../../frontend/home.html"));
 });
 
