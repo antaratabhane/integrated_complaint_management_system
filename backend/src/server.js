@@ -1,4 +1,6 @@
-process.loadEnvFile();
+if (process.env.NODE_ENV !== "production") {
+  process.loadEnvFile();
+}
 let express = require("express");
 let app = express();
 let path = require("path")
@@ -64,9 +66,11 @@ app.use("/get_complaint", complaint_route);
 app.use("/complaint", complaint_route)
 
 mongoose.connect(process.env.MONGO_URL)
-.then(() =>{
-    app.listen(5002, () =>{
-        console.log("Server started");
-        console.log("Database Connected");
-    })
+.then(() => {
+    console.log("Database Connected");
 })
+.catch((err) => {
+    console.error("Database connection failed:", err);
+});
+
+module.exports = app;
