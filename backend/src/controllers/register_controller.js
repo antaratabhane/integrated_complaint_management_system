@@ -15,7 +15,8 @@ let Register = async(req, res) =>{
         req.session.userId = user._id;
         res.redirect("/login_page");
     } catch (error) {
-        res.status(500).json({"message": "Something went wrong!"})
+        console.error("MongoDB Save Error:", error);
+        res.status(500).send("Database error: Check your VS Code terminal for details.");
     }
 }
 
